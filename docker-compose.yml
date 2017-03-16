@@ -1,0 +1,22 @@
+seleniumhub:
+  image: selenium/hub
+  environment:
+      - GRID_TIMEOUT=60
+  ports:
+    - 4444:4444
+
+chromenode:
+  image: selenium/node-chrome
+  ports:
+    - 5900
+  volumes:
+    - /dev/shm:/dev/shm
+  links:
+    - seleniumhub:hub
+
+firefoxnode:
+    image: selenium/node-firefox
+    ports:
+        - 5900
+    links:
+        - seleniumhub:hub
